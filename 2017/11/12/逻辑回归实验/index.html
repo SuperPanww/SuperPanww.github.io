@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>mr.pan first blog | Date Science</title>
+  <title>logistic regression | Date Science</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
   
   
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Mr.Pan First Blog">
-<meta property="og:url" content="http://yoursite.com/2017/11/12/Mr-Pan-First-Blog/index.html">
+  <meta name="description" content="载入数据12345678910111213141516171819import pandas as pdimport numpy as npimport matplotlib as mpl #Matplotlib 是一个 Python 的 2D绘图库import matplotlib.pyplot as pltfrom scipy.optimize import  minimize# scipy.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Logistic Regression">
+<meta property="og:url" content="http://yoursite.com/2017/11/12/逻辑回归实验/index.html">
 <meta property="og:site_name" content="Date Science">
-<meta property="og:updated_time" content="2017-11-11T16:04:21.464Z">
+<meta property="og:description" content="载入数据12345678910111213141516171819import pandas as pdimport numpy as npimport matplotlib as mpl #Matplotlib 是一个 Python 的 2D绘图库import matplotlib.pyplot as pltfrom scipy.optimize import  minimize# scipy.">
+<meta property="og:updated_time" content="2017-11-11T17:35:04.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mr.Pan First Blog">
+<meta name="twitter:title" content="Logistic Regression">
+<meta name="twitter:description" content="载入数据12345678910111213141516171819import pandas as pdimport numpy as npimport matplotlib as mpl #Matplotlib 是一个 Python 的 2D绘图库import matplotlib.pyplot as pltfrom scipy.optimize import  minimize# scipy.">
   
     <link rel="alternate" href="/atom.xml" title="Date Science" type="application/atom+xml">
   
@@ -155,7 +158,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Mr-Pan-First-Blog" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-逻辑回归实验" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -163,7 +166,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Mr.Pan First Blog
+      Logistic Regression
     </h1>
   
 
@@ -171,8 +174,8 @@
     
     <div class="article-meta">
       
-	<a href="/2017/11/12/Mr-Pan-First-Blog/" class="article-date">
-	  <time datetime="2017-11-11T16:04:21.000Z" itemprop="datePublished">2017-11-12</time>
+	<a href="/2017/11/12/逻辑回归实验/" class="article-date">
+	  <time datetime="2017-11-11T17:32:58.000Z" itemprop="datePublished">2017-11-12</time>
 	</a>
 
       
@@ -186,7 +189,20 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="载入数据"><a href="#载入数据" class="headerlink" title="载入数据"></a>载入数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl <span class="comment">#Matplotlib 是一个 Python 的 2D绘图库</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span>  minimize</span><br><span class="line"><span class="comment"># scipy.optimization子模块提供了函数最小值(标量或多维)、曲线拟合和寻找等式的根的有用算法。</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span>  PolynomialFeatures</span><br><span class="line"><span class="comment"># 机器学习中的数据预处理,专门生成多项式特征</span></span><br><span class="line"></span><br><span class="line">pd.set_option(<span class="string">'display.notebook_repr_html'</span>,<span class="keyword">False</span>)</span><br><span class="line">pd.set_option(<span class="string">'display.max_columns'</span>,<span class="keyword">None</span>)</span><br><span class="line">pd.set_option(<span class="string">'display.max_seq_items'</span>,<span class="keyword">None</span>)</span><br><span class="line">pd.set_option(<span class="string">'display.max_rows'</span>,<span class="number">150</span>)</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="comment"># Seaborn其实是在matplotlib的基础上进行了更高级的API封装,从而使得作图更加容易,在大多数情况下使用seaborn就能做出很具有吸引力的图</span></span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">sns.set_context(<span class="string">'notebook'</span>)</span><br><span class="line">sns.set_style(<span class="string">'white'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loaddata</span><span class="params">(file,delimeter)</span>:</span></span><br><span class="line">    data = np.loadtxt(file,delimiter=delimeter)<span class="comment">#delimiter :The string used to separate values. By default, this is any whitespace. </span></span><br><span class="line">    print(<span class="string">'Dimensions: '</span>,data.shape)<span class="comment">#矩阵（ndarray）的shape属性可以获取矩阵的形状</span></span><br><span class="line">    print(data[<span class="number">0</span>:<span class="number">6</span>,:])</span><br><span class="line">    <span class="keyword">return</span>(data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = loaddata(<span class="string">'data1.txt'</span>, <span class="string">','</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>(&apos;Dimensions: &apos;, (100L, 3L))
+[[ 34.62365962  78.02469282   0.        ]
+ [ 30.28671077  43.89499752   0.        ]
+ [ 35.84740877  72.90219803   0.        ]
+ [ 60.18259939  86.3085521    1.        ]
+ [ 79.03273605  75.34437644   1.        ]
+ [ 45.08327748  56.31637178   0.        ]]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plotData</span><span class="params">(data,label_x,label_y,label_pos,label_neg,axes = None)</span>:</span></span><br><span class="line">    <span class="comment"># 获得正负样本的下标(即哪些是正样本，哪些是负样本)</span></span><br><span class="line">    neg = data[:,<span class="number">2</span>] == <span class="number">0</span></span><br><span class="line">    pos = data[:,<span class="number">2</span>] == <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> axes == <span class="keyword">None</span> :</span><br><span class="line">        axes = plt.gca()</span><br><span class="line">    axes.scatter(data[pos][:,<span class="number">0</span>],data[pos][:,<span class="number">1</span>],marker = <span class="string">'+'</span>,c = <span class="string">'K'</span>,s = <span class="number">60</span>, linewidth = <span class="number">2</span>, label = label_pos)</span><br><span class="line">    axes.scatter(data[neg][:,<span class="number">0</span>], data[neg][:,<span class="number">1</span>], c=<span class="string">'y'</span>, s=<span class="number">60</span>, label=label_neg)</span><br><span class="line">    axes.set_xlabel(label_x)</span><br><span class="line">    axes.set_ylabel(label_y)</span><br><span class="line">    axes.legend(frameon= <span class="keyword">True</span>, fancybox = <span class="keyword">True</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pos = data[:,2] == 1</span></span><br><span class="line"><span class="comment"># print data[pos][:,0] ?</span></span><br></pre></td></tr></table></figure>
+<pre><code>[[ 34.62365962  78.02469282   0.        ]]
+</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -244,7 +260,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Inhalt</strong>
     
-        <ol class="nav">Nichts</ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#载入数据"><span class="nav-number">1.</span> <span class="nav-text">载入数据</span></a></li></ol>
     
     </div>
   </aside>
