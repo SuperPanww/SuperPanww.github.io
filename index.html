@@ -281,8 +281,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#一、引言<br>&emsp;&emsp;为降低理解难度，本文用最基础的初等数学来解读逻辑回归，少用公式。多用图形来直观的解释推导公式得现实意义。希望大家对逻辑回归有更直观的理解。</p>
-<p>#二、逻辑回归问题的通俗几何描述<br>&emsp;&emsp;逻辑回归处理的就是分类问题，如下图空间中的两种不同群点，我们希望从空间中选出一个分离边界，将它们分开。<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage001.png" alt=""></p>
+        <h1 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h1><p>&emsp;&emsp;为降低理解难度，本文用最基础的初等数学来解读逻辑回归，少用公式。多用图形来直观的解释推导公式得现实意义。希望大家对逻辑回归有更直观的理解。</p>
+<h1 id="二、逻辑回归问题的通俗几何描述"><a href="#二、逻辑回归问题的通俗几何描述" class="headerlink" title="二、逻辑回归问题的通俗几何描述"></a>二、逻辑回归问题的通俗几何描述</h1><p>&emsp;&emsp;逻辑回归处理的就是分类问题，如下图空间中的两种不同群点，我们希望从空间中选出一个分离边界，将它们分开。<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage001.png" alt=""></p>
 <blockquote>
 <p>如果是一维直线，那分离边界就是一个点，二维平面分离边界就是一条线，三维空间分离边界就是一个空间中的面。</p>
 </blockquote>
@@ -294,12 +294,12 @@
 <li>点的横纵坐标用X（X1，X2）表示</li>
 </ul>
 <p>&emsp;&emsp;现在的问题就变成了：怎么依靠现有这些点的坐标（X1,X2）和标签（y），找出分界线的方程。</p>
-<p>##1.1逆推法解析逻辑回归问题<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage002.png" alt=""></p>
+<h2 id="1-1逆推法解析逻辑回归问题"><a href="#1-1逆推法解析逻辑回归问题" class="headerlink" title="1.1逆推法解析逻辑回归问题"></a>1.1逆推法解析逻辑回归问题</h2><p><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage002.png" alt=""></p>
 <p>&emsp;&emsp;假设我们已经找到这条线，现在我们要通过这条线的性质来反推这个方程<br>&emsp;&emsp;现在我们说说这条线的性质：两类点在这条线的法向量P上投影值的正负号不一样。  </p>
 <ol>
 <li>通过这个我们可以区分点的不同  </li>
 <li>对法向量进行规范，只考虑延长线通过原点的那个法向量。  </li>
-<li><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage004.png" alt=""><br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage005.png" alt=""><br>定义法线与原点的交点为p’，设P与P’的距离为θ0，p’向量的横纵坐标为(θ1,θ2)。空间中任何一个点x (X1,X2)到p’的投影就是θ1X1+θ2X2，再加上前面的常量值就是：θ0+θ1X1+θ2X2 ，这就是就是逻辑回归函数hθ(x)=g(θ0+θ1X1+θ2X2)中括号里面的部分。令z=θ0+θ1X1+θ2X2 就可以根据z的正负号来判断点x的类别了。<br>##2.1从概率角度理解z的含义<br>&emsp;&emsp; Z如果大于0，则点X属于Y=1的类比，Z越大，点X就越有可能属于Y=1类。那我们是否可以把Z理解为点x属于y=1类的概率P(y=1|x) （下文简写成P）呢？不行，因为概率的范围是0到1。没关系，我们可以把P改造一下：令Q=P/(1-P)。这下Q的取值范围就是在[0,+∞)区间单调递增。但是这还不够，我们希望能<strong>在(-∞,+∞)区间变化的。而且在P=1/2的时候刚好是0。</strong>这样才能够和Z匹配。这要怎么做呢？正好我们可以利用Log函数做一个变换：R=log(Q)=log(P/(1-P))，，期望用R作为z的现实意义。画出它的函数图像如图：<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage007.png" alt=""><br>对就是这个函数，在区间[0,1]中可正可负可为零，单调地在(-∞,+∞)变化，而且1/2刚好就是唯一的0值!基本完美满足我们的要求。<br>&emsp;&emsp;好，那么问题来了。<strong>“我们由点x的坐标得到了一个新的特征z，那么z的具体意义是什么呢？”</strong>刚才我们让z= log(P/(1-P))。反过来就是P=1/(1+e-z)=g(z)。图像如下：<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage008.png" alt=""><br><strong>这就是传说中的logit函数和sigmoid函数!</strong><blockquote>
+<li><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage004.png" alt=""><br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage005.png" alt=""><br>定义法线与原点的交点为p’，设P与P’的距离为θ0，p’向量的横纵坐标为(θ1,θ2)。空间中任何一个点x (X1,X2)到p’的投影就是θ1X1+θ2X2，再加上前面的常量值就是：θ0+θ1X1+θ2X2 ，这就是就是逻辑回归函数hθ(x)=g(θ0+θ1X1+θ2X2)中括号里面的部分。令z=θ0+θ1X1+θ2X2 就可以根据z的正负号来判断点x的类别了。<h2 id="2-1从概率角度理解z的含义"><a href="#2-1从概率角度理解z的含义" class="headerlink" title="2.1从概率角度理解z的含义"></a>2.1从概率角度理解z的含义</h2>&emsp;&emsp; Z如果大于0，则点X属于Y=1的类比，Z越大，点X就越有可能属于Y=1类。那我们是否可以把Z理解为点x属于y=1类的概率P(y=1|x) （下文简写成P）呢？不行，因为概率的范围是0到1。没关系，我们可以把P改造一下：令Q=P/(1-P)。这下Q的取值范围就是在[0,+∞)区间单调递增。但是这还不够，我们希望能<strong>在(-∞,+∞)区间变化的。而且在P=1/2的时候刚好是0。</strong>这样才能够和Z匹配。这要怎么做呢？正好我们可以利用Log函数做一个变换：R=log(Q)=log(P/(1-P))，，期望用R作为z的现实意义。画出它的函数图像如图：<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage007.png" alt=""><br>对就是这个函数，在区间[0,1]中可正可负可为零，单调地在(-∞,+∞)变化，而且1/2刚好就是唯一的0值!基本完美满足我们的要求。<br>&emsp;&emsp;好，那么问题来了。<strong>“我们由点x的坐标得到了一个新的特征z，那么z的具体意义是什么呢？”</strong>刚才我们让z= log(P/(1-P))。反过来就是P=1/(1+e-z)=g(z)。图像如下：<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage008.png" alt=""><br><strong>这就是传说中的logit函数和sigmoid函数!</strong><blockquote>
 <p><strong>概念补充</strong>  </p>
 </blockquote>
 </li>
@@ -309,7 +309,7 @@
 <li>而z= log(P/(1-P))的意义就是对数赔率或者对数发生比（log-odds）。  </li>
 </ul>
 <p>&emsp;&emsp;就此我们得到了z的现实意义，还得到了z映射到概率P的拟合方程：<br>P=hθ(x)=g(θ0+θ1X1+θ2X2)= g(z)=1/(1+e-z)<br>当P&gt;=1/2的时候，就判断点x属于y=1的类别；当P&lt;1/2，就判断点x属于y=0的类别。  </p>
-<p>##3.1构造代价函数求出参数的值<br>到目前为止我们就有两个判断某点所属分类的办法，一个是判断z是否大于0，一个是判断g(z)是否大于1/2。然而这并没有什么X用。以上的分析都是基于“假设我们已经找到了这条线”的前提得到的，但是最关键的(θ0,θ1,θ2)三个参数仍未找到有效的办法求出来。如何求这三个关键参数呢？咱可以通过以下几个条件来推导：  </p>
+<h2 id="3-1构造代价函数求出参数的值"><a href="#3-1构造代价函数求出参数的值" class="headerlink" title="3.1构造代价函数求出参数的值"></a>3.1构造代价函数求出参数的值</h2><p>到目前为止我们就有两个判断某点所属分类的办法，一个是判断z是否大于0，一个是判断g(z)是否大于1/2。然而这并没有什么X用。以上的分析都是基于“假设我们已经找到了这条线”的前提得到的，但是最关键的(θ0,θ1,θ2)三个参数仍未找到有效的办法求出来。如何求这三个关键参数呢？咱可以通过以下几个条件来推导：  </p>
 <ul>
 <li>我们漏了一个关键的性质：这些样本点已经被标注了y=0或者y=1的类别!</li>
 <li>我们一方面可以基于z是否大于0或者g(z) 是否大于1/2来判断一个点的类别，另一方又可以依据这些点已经被标注的类别与我们预测的类别的差值来评估我们预测的好坏。</li>
@@ -322,7 +322,7 @@
 <li>“预估结果”有两个备选方案，经过上面的分析，可以采用z或者g(z)。显然g(z)更好，因为g(z)的意义是概率P，刚好在[0,1]范围之间，与实际结果{0，1}很相近。  </li>
 </ul>
 <p>我们首先想到的是y-hθ(x)。<br>但这是当y=1的时候比较好。如果y=0，则y- hθ(x)= - hθ(x)是负数，不太好比较，则采用其绝对值hθ(x)即可。综合表示如下：<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage011.png" alt=""><br>但这个函数有个问题：求导不太方便，进而用梯度下降法就不太方便。于是对上面的代价函数进行了简单的处理，使之便于求导。结果如下：<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchenimage012.jpg" alt=""> </p>
-<p>##4.1总结列表<br><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchen%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.jpg" alt=""></p>
+<h2 id="4-1总结列表"><a href="#4-1总结列表" class="headerlink" title="4.1总结列表"></a>4.1总结列表</h2><p><img src="http://7xnkcs.com1.z0.glb.clouddn.com/longxinchen%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.jpg" alt=""></p>
 
       
     </div>
