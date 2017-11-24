@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Data Science</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="title: Machine Learning First Weak: 11/19/2017 4:05:15 PMtags:Machine Learning— Machine Learning First Weakintroduce　　This weak introduce the core idea of teaching a computer to learn concepts using">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data Science">
+<meta property="og:url" content="http://yoursite.com/2017/11/24/Machine Learning First Weak /index.html">
+<meta property="og:site_name" content="Data Science">
+<meta property="og:description" content="title: Machine Learning First Weak: 11/19/2017 4:05:15 PMtags:Machine Learning— Machine Learning First Weakintroduce　　This weak introduce the core idea of teaching a computer to learn concepts using">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?x^{(i)}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?y^{(i)}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?(x^{(i)},y^{(i)})">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?(x^{(i)},y^{(i)});i=1,....,m">
+<meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/H6qTdZmYEeaagxL7xdFKxA_2f0f671110e8f7446bb2b5b2f75a8874_Screenshot-2016-10-23-20.14.58.png?expiry=1511222400000&hmac=H6v7kyhWqJSmg8RmNMfddrmBEY0GpZp1cLLO_STe4Bs">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?J(\theta_0,&space;\theta_1)&space;=&space;\dfrac&space;{1}{2m}&space;\displaystyle&space;\sum&space;_{i=1}^m&space;\left&space;(&space;\hat{y}_{i}-&space;y_{i}&space;\right)^2&space;=&space;\dfrac&space;{1}{2m}&space;\displaystyle&space;\sum&space;_{i=1}^m&space;\left&space;(h_\theta&space;(x_{i})&space;-&space;y_{i}&space;\right)^2">
+<meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/R2YF5Lj3EeajLxLfjQiSjg_110c901f58043f995a35b31431935290_Screen-Shot-2016-12-02-at-5.23.31-PM.png?expiry=1511222400000&hmac=yYF10WWB_QqqtnBkRzRDSzqJoJj7V1FdT_2aCY_kozc">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\theta_j&space;:=&space;\theta_j&space;-&space;\alpha&space;\frac{\partial}{\partial&space;\theta_j}&space;J(\theta_0,&space;\theta_1)">
+<meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/yr-D1aDMEeai9RKvXdDYag_627e5ab52d5ff941c0fcc741c2b162a0_Screenshot-2016-11-02-00.19.56.png?expiry=1511395200000&hmac=fTAz1TGpL8kLafBCu0fw6C_NCtTiAUI6j0Zy-of7sQw">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\begin{align*}&space;\text{repeat&space;until&space;convergence:&space;}&space;\lbrace&space;&&space;\newline&space;\theta_0&space;:=&space;&&space;\theta_0&space;-&space;\alpha&space;\frac{1}{m}&space;\sum\limits_{i=1}^{m}(h_\theta(x_{i})&space;-&space;y_{i})&space;\newline&space;\theta_1&space;:=&space;&&space;\theta_1&space;-&space;\alpha&space;\frac{1}{m}&space;\sum\limits_{i=1}^{m}\left((h_\theta(x_{i})&space;-&space;y_{i})&space;x_{i}\right)&space;\newline&space;\rbrace&&space;\end{align*}">
+<meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/QFpooaaaEea7TQ6MHcgMPA_cc3c276df7991b1072b2afb142a78da1_Screenshot-2016-11-09-08.30.54.png?expiry=1511395200000&hmac=CAtwoexX7CZo1YaNGucZtGyvoDDwY3Pw7tglillrw1I">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\mathbb{R}^{n}">
+<meta property="og:updated_time" content="2017-11-24T11:41:23.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Data Science">
+<meta name="twitter:description" content="title: Machine Learning First Weak: 11/19/2017 4:05:15 PMtags:Machine Learning— Machine Learning First Weakintroduce　　This weak introduce the core idea of teaching a computer to learn concepts using">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?x^{(i)}">
+  
+    <link rel="alternate" href="/atom.xml" title="Data Science" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Categories</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Machine Learning First Weak " style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+	<a href="/2017/11/24/Machine Learning First Weak /" class="article-date">
+	  <time datetime="2017-11-24T11:38:20.647Z" itemprop="datePublished">2017-11-24</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: Machine Learning First Weak: 11/19/2017 4:05:15 PM<br>tags:<br>Machine Learning—</p>
+<h1 id="Machine-Learning-First-Weak"><a href="#Machine-Learning-First-Weak" class="headerlink" title="Machine Learning First Weak"></a>Machine Learning First Weak</h1><h2 id="introduce"><a href="#introduce" class="headerlink" title="introduce"></a>introduce</h2><p>　　This weak introduce the core idea of teaching a computer to learn concepts using data – without being explicity programmed.Start by covering linear regression with one variable. discuss the application of linear regression to housing price prediction,present the notion of cost function, and introduce the gradient descent method for learing. also provide refrish on liner algebra concepts.  </p>
+<h2 id="What-is-Machine-Learning"><a href="#What-is-Machine-Learning" class="headerlink" title="What is Machine Learning?"></a>What is Machine Learning?</h2><p>　　two difinitions of Machine Learing are offered:<br>　　1. The filed of study that gives computers the ability to learn whithout being explicity programmed<br>　　2. A computer program is said to learn from experience E with respect to some class of tasks T and performace measure P.</p>
+<h2 id="Supervised-Learning-and-Unsupervised-Learing"><a href="#Supervised-Learning-and-Unsupervised-Learing" class="headerlink" title="Supervised Learning and Unsupervised Learing"></a>Supervised Learning and Unsupervised Learing</h2><p>　　<strong>Supervised Learning:</strong><br>　　in supervised leanring ,we are give a data set and already know what our correct output should look like,having the idea that there is a relationship between the input and output.<br>　　Supervised learing problems are categorized into”regretion” and “classification” problems.in a regretion problem,we try to map input variables to some continous function.in a classfication problem,we are trying to map input variables into discrete categories.<br>　　<em>Example 1:</em>Given data about the size of houses on the real estate market, try to predict their price. Price as a function of size is a continuous output, so this is a <strong>regression problem</strong>.<br>　　<em>Example 2:</em>We could turn <em>example 1</em> into a classification problem by instead making our output about whether the house “sells for more or less than the asking price.” Here we are classifying the houses based on price into two discrete categories, so this is a <strong>classfication problem</strong>.<br>　　<strong>Unsupervised Learning:</strong><br>　　Unsupervised learning allows us to approach problems with little or no idea what our results should look like.we can derive structure by clustering the date based on relationships among the variables in the data.with the unsupervised learing there is no feadback based on the prediction results.<br>　　<em>Example 1:</em>Clustering: Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on.<br>　　<em>Example 2:</em>Non-clustering: The “Cocktail Party Algorithm”, allows you to find structure in a chaotic environment.(i.e. identifying individual voices and music from a mesh of sounds at a <a href="https://en.wikipedia.org/wiki/Cocktail_party_effect" target="_blank" rel="external">cocktail party</a>).   </p>
+<h2 id="Model-Representation"><a href="#Model-Representation" class="headerlink" title="Model Representation"></a>Model Representation</h2><ul>
+<li><a href="http://www.codecogs.com/eqnedit.php?latex=x^{(i)}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?x^{(i)}" title="x^{i}"></a> : input </li>
+<li><a href="http://www.codecogs.com/eqnedit.php?latex=y^{i}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?y^{(i)}" title="y^{i}"></a> : output</li>
+<li><a href="http://www.codecogs.com/eqnedit.php?latex=(x^{i},y^{i})" target="_blank"><img src="http://latex.codecogs.com/gif.latex?(x^{(i)},y^{(i)})" title="(x^{i},y^{i})"></a> : a traning examples</li>
+<li><a href="http://www.codecogs.com/eqnedit.php?latex=(x^{i},y^{i});i=1,....,m" target="_blank"><img src="http://latex.codecogs.com/gif.latex?(x^{(i)},y^{(i)});i=1,....,m" title="(x^{i},y^{i});i=1,....,m"></a> : a traning set<blockquote>
+<p>Note: the superscript “(i)” in the notation is simply an index into the training set, and has nothing to do with exponentiation.</p>
+</blockquote>
+</li>
+</ul>
+<p>　　To describe the supervised learning problem slightly more formally, our goal is, given a training set, to learn a function h : X → Y so that h(x) is a “good” predictor for the corresponding value of y. For historical reasons, this function <strong>h is called a hypothesis</strong>. Seen pictorially, the process is therefore like this:<br><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/H6qTdZmYEeaagxL7xdFKxA_2f0f671110e8f7446bb2b5b2f75a8874_Screenshot-2016-10-23-20.14.58.png?expiry=1511222400000&amp;hmac=H6v7kyhWqJSmg8RmNMfddrmBEY0GpZp1cLLO_STe4Bs" alt="">  </p>
+<h2 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h2><p>　　we use <strong>cost function</strong> to measure the accuracy of our hypothesis function:<br>　　<a href="http://www.codecogs.com/eqnedit.php?latex=J(\theta_0,&space;\theta_1)&space;=&space;\dfrac&space;{1}{2m}&space;\displaystyle&space;\sum&space;_{i=1}^m&space;\left&space;(&space;\hat{y}_{i}-&space;y_{i}&space;\right)^2&space;=&space;\dfrac&space;{1}{2m}&space;\displaystyle&space;\sum&space;_{i=1}^m&space;\left&space;(h_\theta&space;(x_{i})&space;-&space;y_{i}&space;\right)^2" target="_blank"><img src="http://latex.codecogs.com/gif.latex?J(\theta_0,&space;\theta_1)&space;=&space;\dfrac&space;{1}{2m}&space;\displaystyle&space;\sum&space;_{i=1}^m&space;\left&space;(&space;\hat{y}_{i}-&space;y_{i}&space;\right)^2&space;=&space;\dfrac&space;{1}{2m}&space;\displaystyle&space;\sum&space;_{i=1}^m&space;\left&space;(h_\theta&space;(x_{i})&space;-&space;y_{i}&space;\right)^2" title="J(\theta_0, \theta_1) = \dfrac {1}{2m} \displaystyle \sum _{i=1}^m \left ( \hat{y}_{i}- y_{i} \right)^2 = \dfrac {1}{2m} \displaystyle \sum _{i=1}^m \left (h_\theta (x_{i}) - y_{i} \right)^2"></a><br>　　The following image summarizes what the cost function does:<br><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/R2YF5Lj3EeajLxLfjQiSjg_110c901f58043f995a35b31431935290_Screen-Shot-2016-12-02-at-5.23.31-PM.png?expiry=1511222400000&amp;hmac=yYF10WWB_QqqtnBkRzRDSzqJoJj7V1FdT_2aCY_kozc" alt="">  </p>
+<h2 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h2><p>　　The gradient descent use to estimate the parameters in the hypothesis function.<br>　　<a href="http://www.codecogs.com/eqnedit.php?latex=\theta_j&space;:=&space;\theta_j&space;-&space;\alpha&space;\frac{\partial}{\partial&space;\theta_j}&space;J(\theta_0,&space;\theta_1)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\theta_j&space;:=&space;\theta_j&space;-&space;\alpha&space;\frac{\partial}{\partial&space;\theta_j}&space;J(\theta_0,&space;\theta_1)" title="\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta_0, \theta_1)"></a><br>　　The size of each step is determined by the parameter α, which is called the learning rate.<br>　　<img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/yr-D1aDMEeai9RKvXdDYag_627e5ab52d5ff941c0fcc741c2b162a0_Screenshot-2016-11-02-00.19.56.png?expiry=1511395200000&amp;hmac=fTAz1TGpL8kLafBCu0fw6C_NCtTiAUI6j0Zy-of7sQw" alt=""> </p>
+<h3 id="Gradient-Descent-For-Linear-Regression"><a href="#Gradient-Descent-For-Linear-Regression" class="headerlink" title="Gradient Descent For Linear Regression"></a>Gradient Descent For Linear Regression</h3><p>　　We can substitute our actual cost function and our actual hypothesis function and modify the equation to :<br><a href="http://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;\text{repeat&space;until&space;convergence:&space;}&space;\lbrace&space;&&space;\newline&space;\theta_0&space;:=&space;&&space;\theta_0&space;-&space;\alpha&space;\frac{1}{m}&space;\sum\limits_{i=1}^{m}(h_\theta(x_{i})&space;-&space;y_{i})&space;\newline&space;\theta_1&space;:=&space;&&space;\theta_1&space;-&space;\alpha&space;\frac{1}{m}&space;\sum\limits_{i=1}^{m}\left((h_\theta(x_{i})&space;-&space;y_{i})&space;x_{i}\right)&space;\newline&space;\rbrace&&space;\end{align*}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;\text{repeat&space;until&space;convergence:&space;}&space;\lbrace&space;&&space;\newline&space;\theta_0&space;:=&space;&&space;\theta_0&space;-&space;\alpha&space;\frac{1}{m}&space;\sum\limits_{i=1}^{m}(h_\theta(x_{i})&space;-&space;y_{i})&space;\newline&space;\theta_1&space;:=&space;&&space;\theta_1&space;-&space;\alpha&space;\frac{1}{m}&space;\sum\limits_{i=1}^{m}\left((h_\theta(x_{i})&space;-&space;y_{i})&space;x_{i}\right)&space;\newline&space;\rbrace&&space;\end{align*}" title="\begin{align*} \text{repeat until convergence: } \lbrace & \newline \theta_0 := & \theta_0 - \alpha \frac{1}{m} \sum\limits_{i=1}^{m}(h_\theta(x_{i}) - y_{i}) \newline \theta_1 := & \theta_1 - \alpha \frac{1}{m} \sum\limits_{i=1}^{m}\left((h_\theta(x_{i}) - y_{i}) x_{i}\right) \newline \rbrace& \end{align*}"></a><br><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/QFpooaaaEea7TQ6MHcgMPA_cc3c276df7991b1072b2afb142a78da1_Screenshot-2016-11-09-08.30.54.png?expiry=1511395200000&amp;hmac=CAtwoexX7CZo1YaNGucZtGyvoDDwY3Pw7tglillrw1I" alt=""></p>
+<h2 id="Linear-Algebra"><a href="#Linear-Algebra" class="headerlink" title="Linear Algebra"></a>Linear Algebra</h2><h3 id="Matrices-and-Vectors"><a href="#Matrices-and-Vectors" class="headerlink" title="Matrices and Vectors"></a>Matrices and Vectors</h3><p>　　Matrices are 2-dimensional arrays，A vector is a matrix with one column and many rows．</p>
+<ul>
+<li>Matrices are usually denoted by uppercase names while vectors are lowercase.</li>
+<li>“Scalar” means that an object is a single value, not a vector or matrix.</li>
+<li>ℝ refers to the set of scalar real numbers.</li>
+<li><img src="http://latex.codecogs.com/gif.latex?\mathbb{R}^{n}" title="\mathbb{R}^{n}"> refers to the set of n-dimensional vectors of real numbers.</li>
+<li>A vector with ‘n’ rows is referred to as an ‘n’-dimensional vector.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/12/机器学习-01-用初等数学解读逻辑回归/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">机器学习-01-用初等数学解读逻辑回归</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Machine-Learning-First-Weak"><span class="nav-number">1.</span> <span class="nav-text">Machine Learning First Weak</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduce"><span class="nav-number">1.1.</span> <span class="nav-text">introduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-Machine-Learning"><span class="nav-number">1.2.</span> <span class="nav-text">What is Machine Learning?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Supervised-Learning-and-Unsupervised-Learing"><span class="nav-number">1.3.</span> <span class="nav-text">Supervised Learning and Unsupervised Learing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Representation"><span class="nav-number">1.4.</span> <span class="nav-text">Model Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cost-Function"><span class="nav-number">1.5.</span> <span class="nav-text">Cost Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">1.6.</span> <span class="nav-text">Gradient Descent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradient-Descent-For-Linear-Regression"><span class="nav-number">1.6.1.</span> <span class="nav-text">Gradient Descent For Linear Regression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-Algebra"><span class="nav-number">1.7.</span> <span class="nav-text">Linear Algebra</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Matrices-and-Vectors"><span class="nav-number">1.7.1.</span> <span class="nav-text">Matrices and Vectors</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2017 Data Science All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Data Science
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Now I have a dream All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
